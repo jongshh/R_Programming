@@ -1,0 +1,21 @@
+setwd("C:/Users/DIA-318/Desktop/data")
+getwd()
+
+exam = read.csv("csv_exam.csv")
+exam[c(3,8,15), "math"] = NA
+exam[c(3,8,15), "math"]
+
+install.packages("dplyr")
+library(dplyr)
+
+exam %>% summarise(mean_math = mean(math))
+exam %>% summarise(mean_english = mean(english))
+
+exam[c(4,10,14), "english"]
+
+mean(exam$math, na.rm = T)
+
+mean(exam$science, na.rm = T)
+
+exam$math <- ifelse(is.na(exam$math), 55, exam$math)
+table(is.na(exam$math))
