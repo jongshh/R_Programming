@@ -36,16 +36,16 @@ mpg %>% filter(!is.na(hwy)) %>%
 
 Broken_Data = as.data.frame(ggplot2::mpg)
 Broken_Data[c(33,52,80,142,195,208), "hwy"] = NA
-Broken_Data[c(2,5,9), "cty"] = NA
+Broken_Data[c(2,5,9), "cty"] = NA ##<- hwy, cty 한번에 하는 방법?
 
 hwy_mean = mean(mpg$hwy, na.rm = T)
-cty_mean = mean(mpg$cty, na.rm = T)
+cty_mean = mean(mpg$cty, na.rm = T) ##<- hwy, cty 한번에 하는 방법?
 
 mpg$hwy = ifelse(is.na(mpg$hwy), hwy_mean, mpg$hwy)
 table(is.na(mpg$hwy))
 
 mpg$cty = ifelse(is.na(mpg$cty), hwy_mean, mpg$cty)
-table(is.na(mpg$cty))
+table(is.na(mpg$cty)) ##<- hwy, cty 한번에 하는 방법?
 
 mean(mpg$hwy)
 mean(mpg$cty)
