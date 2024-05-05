@@ -1,0 +1,54 @@
+## Pre-importing
+
+install.packages("ggplot2")
+install.packages("dplyr")
+
+library(ggplot2)
+library(dplyr)
+
+##Prepare data
+
+mpg = as.data.frame(ggplot2::mpg)
+mpg[c(65,124,131,153,212), "hwy"] = NA
+
+## Q1 - A
+
+table(is.na(mpg$drv))
+## FALSE 234 / TRUE -
+
+table(is.na(mpg$hwy))
+## FALSE 229 / TRUE 5
+
+## Q2 - A
+
+mpg %>% filter(!is.na(hwy)) %>%
+  group_by(drv) %>%
+  summarise(mean_hwy = mean(hwy))
+
+## A tibble: 3 × 2
+## drv   mean_hwy
+## <chr>    <dbl>
+##  1 4      19.2
+##  2 f      28.2
+##  3 r      21 
+
+## Q3 - Advancing?
+
+Broken_Data = as.data.frame(ggplot2::mpg)
+Broken_Data[c(33,52,80,142,195,208), "hwy"] = NA
+Broken_Data[c(2,5,9), "cty"] = NA
+
+hwy_mean = mean(mpg$hwy, na.rm = T)
+cty_mean = mean(mpg$cty, na.rm = T)
+
+mpg$hwy = ifelse(is.na(mpg$hwy), hwy_mean, mpg$hwy)
+table(is.na(mpg$hwy))
+
+mpg$cty = ifelse(is.na(mpg$cty), hwy_mean, mpg$cty)
+table(is.na(mpg$cty))
+
+mean(mpg$hwy)
+mean(mpg$cty)
+
+
+
